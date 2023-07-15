@@ -54,7 +54,7 @@
             {% if user.is_authenticated %}
             <div id="exam" class="collapse">
                <h4>Course: {{question.course}}</h4>
-               {% for question in course.question %}
+               {% for question in course.question_set %}
                <ul>
                    <li>Question: {{question.text_content}} </li>
                    <ul> 

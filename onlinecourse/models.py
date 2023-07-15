@@ -100,8 +100,7 @@ class Question(models.Model):
     text_content = models.TextField()
     grade_point = models.IntegerField(default=0)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    choice = models.ManyToManyField(Choice)
-
+   
     # <HINT> A sample model method to calculate if learner get the score of the question
     def is_get_score(self, selected_ids):
        all_answers = self.choice_set.filter(is_correct=True).count()
