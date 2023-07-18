@@ -96,10 +96,12 @@ class Enrollment(models.Model):
 
 
 class Question(models.Model):
-    course = models.ManyToManyField(Course)
-    text_content = models.TextField()
-    grade_point = models.IntegerField(default=0)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    grade = models.IntegerField(default=50)
+
+    def __str__(self):
+        return "Question: " + self.content
    
     # <HINT> A sample model method to calculate if learner get the score of the question
     def is_get_score(self, selected_ids):
@@ -111,8 +113,8 @@ class Question(models.Model):
            return False
 
 class Choice(models.Model):
-    question = models.ManyToManyField(Question)
-    choice_content = models.TextField()
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
     is_correct = models.BooleanField(default=False)
 
 class Submission(models.Model):

@@ -66,7 +66,7 @@
 
            
             <form id="questionform" action="point to a submit view" method="post">
-                {% for question in course.question %}
+                {% for question in choice.question %}
                         <div class="card mt-1">
                             <div class="card-header"><h5>{{ question.text_content}}</h5></div>
                             {% csrf_token %}
