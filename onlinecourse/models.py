@@ -74,6 +74,7 @@ class Lesson(models.Model):
     order = models.IntegerField(default=0)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.TextField()
+    
 
 
 # Enrollment model
@@ -99,6 +100,7 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     grade = models.IntegerField(default=50)
+    lesson = models.ManyToManyField(Lesson)
 
     def __str__(self):
         return "Question: " + self.content
@@ -117,7 +119,14 @@ class Choice(models.Model):
     content = models.CharField(max_length=200)
     is_correct = models.BooleanField(default=False)
 
+    def __str__(self):
+       return self.content
+   
+
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete = models.CASCADE)
     choice = models.ManyToManyField(Choice)
+
+    def __str__(self):
+        return f"submission:{self.pk}"
 
