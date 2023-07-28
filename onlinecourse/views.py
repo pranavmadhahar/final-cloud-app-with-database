@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # <HINT> Import any new Models here
-from .models import Course, Enrollment, Question, Choice, Submission
+from .models import Course, Enrollment, Choice, Submission, Question
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -103,16 +103,16 @@ def enroll(request, course_id):
     return HttpResponseRedirect(reverse(viewname='onlinecourse:course_details', args=(course.id,)))
 
 
-def submit(request, course_id):
+def submit(request, course_id, lesson_id):
     course = get_object_or_404(Course, pk=course_id)
     user = request.user
     enrollment = Enrollment.objects.get(user=user, course=course)
     submission = Submission.objects.create(enrollment=enrollment)
     choices = extract_answers(request)
-    submission.choices.set(choices)
+    submission.choice.set(choices)
     submission_id = submission.id
 
-    return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id, submission_id,)))
+    return HttpResponseRedirect(reverse(viewname='onlinecourse:exam_result', args=(course_id, lesson_id, submission_id)))
 
 
 # <HINT> Create a submit view to create an exam submission record for a course enrollment,
