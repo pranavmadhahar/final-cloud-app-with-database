@@ -103,7 +103,7 @@ def enroll(request, course_id):
     return HttpResponseRedirect(reverse(viewname='onlinecourse:course_details', args=(course.id,)))
 
 
-def submit(request, course_id, lesson_id):
+def submit(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     user = request.user
     enrollment = Enrollment.objects.get(user=user, course=course)
@@ -112,7 +112,7 @@ def submit(request, course_id, lesson_id):
     submission.choice.set(choices)
     submission_id = submission.id
 
-    return HttpResponseRedirect(reverse(viewname='onlinecourse:exam_result', args=(course_id, lesson_id, submission_id)))
+    return HttpResponseRedirect(reverse(viewname='onlinecourse:exam_result', args=(course_id, submission_id)))
 
 
 # <HINT> Create a submit view to create an exam submission record for a course enrollment,
