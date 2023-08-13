@@ -74,7 +74,7 @@ class Lesson(models.Model):
     order = models.IntegerField(default=0)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.TextField()
-    
+      
 
 
 # Enrollment model
@@ -116,7 +116,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    content = models.CharField(max_length=200)
+    content = models.CharField(null=False, max_length=200)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
